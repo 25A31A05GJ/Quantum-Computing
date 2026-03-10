@@ -1,1 +1,16 @@
+#counting values
+%matplotlib inline
 
+from qiskit import QuantumCircuit
+from qiskit.providers.basic_provider import BasicSimulator
+from qiskit.visualization import plot_histogram
+import matplotlib.pyplot as plt
+qc = QuantumCircuit(1,1)
+qc.h(0)
+qc.measure(0,0)
+simulator = BasicSimulator()
+result = simulator.run(qc, shots=1001).result()
+counts = result.get_counts()
+print(counts)
+plot_histogram(counts)
+plt.show()
