@@ -1,1 +1,13 @@
-
+#designing circuit using state vector
+from qiskit import QuantumCircuit 
+from qiskit.quantum_info import Statevector
+qc = QuantumCircuit(2)
+qc.h(0)
+qc.h(1)
+print("Quantum Circuit")
+print(qc.draw())
+acid = Statevector.from_instruction(qc)
+print("\nQuantum Statevector:")
+print(acid)
+print("\nprobabilities")
+print(acid.probabilities_dict())
