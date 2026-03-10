@@ -1,0 +1,10 @@
+#designing circcuit using cirq
+import cirq
+qubit = cirq.GridQubit(0,0)
+circuit = cirq.Circuit()
+circuit.append(cirq.H(qubit))
+circuit.append(cirq.measure(qubit, key = 'result'))
+print(circuit)
+simulator = cirq.Simulator()
+result = simulator.run(circuit, repetitions=1000)
+print(result.histogram(key = 'result'))
