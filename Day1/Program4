@@ -1,0 +1,15 @@
+#superposition code
+from qiskit import QuantumCircuit, transpile
+from qiskit.providers.basic_provider import BasicSimulator
+qc = QuantumCircuit(1,1)
+qc.h(0)
+qc.measure(0,0)
+simulator = BasicSimulator()
+compiled_circuit = transpile(qc,simulator)
+job = simulator.run(compiled_circuit, shots = 1000)
+result = job.result()
+counts = result.get_counts()
+print("superposition result:")
+print(counts)
+print("\nQuantumCircuits:")
+print(qc.draw())
