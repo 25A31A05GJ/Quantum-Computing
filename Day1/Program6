@@ -1,0 +1,19 @@
+#designing circuit using qiskit
+import qiskit
+from qiskit import QuantumCircuit
+from qiskit.providers.basic_provider import BasicSimulator
+qc = QuantumCircuit(2,2)
+qc.h(0)
+qc.h(1)
+qc.measure(0,0)
+qc.measure(1,1)
+simulator = BasicSimulator()
+compiled_circuit = transpile(qc,simulator)
+job = simulator.run(compiled_circuit, shots = 1000)
+result = job.result()
+counts = result.get_counts()
+print(circuit)
+print(counts)
+print("\nQuantumCircuits:")
+print(qc.draw())
+                    
