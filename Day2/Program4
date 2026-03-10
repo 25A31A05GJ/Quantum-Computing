@@ -1,1 +1,25 @@
-
+#groves algorithm
+%matplotlib inline
+from qiskit import QuantumCircuit, transpile
+from qiskit.providers.basic_provider import BasicSimulator
+from qiskit.visualization import plot_histogram
+import matplotlib.pyplot as plt
+import numpy as np
+qc = QuantumCircuit(2,2)
+qc.h([0,1])
+qc.x([0,1])
+qc.h(1)
+qc.cx(0,1)
+qc.h(1)
+qc.x([0,1])
+qc.h([0,1])
+qc.measure([0,1], [0,1])
+print(qc.draw())
+simulator = BasicSimulator()
+compiled = transpile(qc, simulator)
+job = simulator.run(compiled, shots=1000)
+result = job.result()
+counts = result.get_counts()
+print(counts)
+plot_histogram(counts)
+plt.show()
