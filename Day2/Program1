@@ -1,1 +1,10 @@
-
+text = 'HELLO'
+shift = 3
+encrypted = " "
+for char in text:
+    encrypted += chr(ord(char) + shift)
+print("Encrypted:", encrypted)
+decrypted = " "
+for char in text:
+    decrypted += chr(ord(char) - shift)
+print("decrypted:", decrypted)
