@@ -1,1 +1,36 @@
-
+  #bit implementation
+%matplotlib inline
+from qiskit import QuantumCircuit, transpile
+from qiskit.providers.basic_provider import BasicSimulator
+from qiskit.visualization import plot_histogram
+import matplotlib.pyplot as plt
+qc = QuantumCircuit(3,3)
+#step1: superposition
+qc.h([0,1,2])
+#step2: oracle
+qc.x(1)
+qc.h(2)
+qc.ccx(0,1,2)                     #reason to apply x gate we need a place holder 
+qc.h(2)
+qc.x(1)
+#step3: diffusion
+qc.h([0,1,2])
+qc.x([0,1,2])
+qc.h(2)
+qc.ccx(0,1,2)
+# qc.h(2)
+# qc.x([0,1,2])
+qc.h(2)
+qc.x([0,1,2])
+qc.h([0,1,2])
+#step4: measurement
+qc.measure([0,1,2] , [0,1,2]) #states qubits list
+print(qc.draw())
+simulator = BasicSimulator()
+compiled = transpile(qc, simulator)
+job = simulator.run(compiled, shots=1000)
+result = job.result()
+counts = result.get_counts()
+print(counts)
+plot_histogram(counts)
+plt.show()
